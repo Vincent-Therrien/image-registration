@@ -114,6 +114,9 @@ build the application for the ARM platform.
     ```console
       > scp -P 2222 image-registration root@localhost:~
     ```
+  
+  The section entitle [interface](#interface) explains how to launch the
+  program.
 
 4. **Test on ARM**. Tests were performed on a QEMU virtual machine or on
   the host system as long as Python can be executed.
@@ -177,9 +180,12 @@ library. A small program was compiled from the file
 "image-registration/cc_test/cross_compile_test.cpp" and can be executed on the
 ARM QEMU emulator.
 
-To test cross compilation, transfer the file from the host system to QEMU:
+To test cross compilation, compile and transfer the file from the host system
+to QEMU:
 ```console
-scp -P 2222 image-registration/image-registration/cc_test/cross_compile_test root@localhost:~
+cd image-registration/cc_test/
+arm-linux-gnueabi-g++ cross_compile_test.cpp -o cross_compile_test
+scp -P 2222 cross_compile_test root@localhost:~
 ```
 
 On QEMU, run:
