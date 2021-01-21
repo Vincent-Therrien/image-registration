@@ -153,14 +153,14 @@ build the application for the ARM platform.
 
 The program can be launched with a terminal using the following command:
 
-  > image-registration \<image to register> \<image options> \<reference image> \<image options> \<general options>
+    > image-registration \<image to register> \<image options> \<reference image> \<image options> \<general options>
 
 Image options determine how the loaded images must be
 cropped. They are:
 
 * **-c** or **--crop**: crop the image according to a rectangular region
-  specified as <top left x coordinate> <top left y coordinate> <width>
-  <height>.
+  specified as "\<top left x coordinate> \<top left y coordinate> \<width>
+  \<height>".
 * **-g** or **--graphic**: open a graphical interface to crop the image
   manually.
 * **No option**: the whole image is used.
@@ -177,14 +177,14 @@ The registered image will be saved with the name of the reference image with an
 
 For example, the command:
 
-  > image-registration a.png -c 0 0 100 200 b.png -g
+    > image-registration a.png -c 0 0 100 200 b.png -g
 
 will crop a 100 (width) by 200 (height) pixel rectangle in the top left corner
 of image "a.png" and use it as the image to register. A graphical interface
 will open and let the user manually select the region of interest for "b.png".
 Meanwhile, the command:
 
-  > image-registration a.png b.png
+    > image-registration a.png b.png
 
 will use "a.png" as a whole for the image to register and "b.png" for the
 reference.
@@ -197,13 +197,14 @@ The application can be improved in the following ways:
   * local detection algorithm selection (ORB),
   * number of features to detect, and
   * minimum distance between features
+
   are pre-determined in the .h file and thus impossible for the user to
   change. Although it makes the application simpler, an actual program should
   make it possible to set parameters on each use.
 
 2. **Less Repetitions**: Some parts of the code are repeated because
   it results in more readability. For example, in the file
-  "image-registration.cpp" on lines 236 and 237, vectors an declared for each
+  "image-registration.cpp" on lines 236 and 237, vectors are declared for each
   image with an explicit name instead of being grouped in a single structure.
   This practice would however not work for a program that uses more than
   two images at once because individual variables would have to be declared
@@ -214,3 +215,13 @@ The application can be improved in the following ways:
   meets minimum requirements, but the test framework should also evaluate
   performances (memory use and rapidity, among others) to ease comparison with
   similar programs.
+
+4. **GUI Tests**: The graphical interface is not tested, but it could be
+  automated in the suite along with the other test for cropping images.
+
+5. **Stricter Programming Practices**: C++ programming conventions are not
+  rigorously followed:
+  * ".h" and ".cpp" should be placed in "include" and "source" directories,
+    respectively.
+  * The argument parsing function takes a lot of input/output arguments,
+    a class could replace it for more abstraction.
