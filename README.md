@@ -89,48 +89,48 @@ build the application for the ARM platform.
   * Load the QEMU virtual machine and ensure that ports will enable file
     transfer from the host system (ports 2222 and 22 are used):
 
-    > qemu-system-arm.exe -M versatilepb \
-    >   -kernel vmlinuz-2.6.32-5-versatile \
-    >   -initrd initrd.img-2.6.32-5-versatile \
-    >   -hda debian_squeeze_armel_standard.qcow2 \
-    >   -append "root=/dev/sda1" \
-    >   -net user,id=net0,hostfwd=tcp::2222-:22 -net nic
+      > qemu-system-arm.exe -M versatilepb \
+      >   -kernel vmlinuz-2.6.32-5-versatile \
+      >   -initrd initrd.img-2.6.32-5-versatile \
+      >   -hda debian_squeeze_armel_standard.qcow2 \
+      >   -append "root=/dev/sda1" \
+      >   -net user,id=net0,hostfwd=tcp::2222-:22 -net nic
 
   * Transfer the executable file on QEMU from the host system:
 
-    > scp -P 2222 image-registration root@localhost:~
+      > scp -P 2222 image-registration root@localhost:~
 
 4. **Test on ARM**. Tests were performed on a QEMU virtual machine.
 
    * Transfer the test suite on QEMU from the host system:
 
-    > scp -P 2222 -r tests root@localhost:~
+        > scp -P 2222 -r tests root@localhost:~
   
    * Create a Python virtual environment with the required packages.
       Python 3.5 or more recent needs to be installed on the system:
 
-        > sudo apt-get install python3
+          > sudo apt-get install python3
 
       Install venv to create virtual environments:
 
-        > python3 -m pip install virtualenv
+          > python3 -m pip install virtualenv
 
       Create the environment:
 
-        > python3 -m venv env
+          > python3 -m venv env
 
       Activate the environment:
 
-        > source env/bin/activate
+          > source env/bin/activate
 
       This will ensure that Python commands will be executed with the
       interpreter version in the environment. Install required packages:
 
-        > (env) python3 -m pip install -r tests/requirements.txt
+          > (env) python3 -m pip install -r tests/requirements.txt
       
    3. Run tests:
 
-        > (env) pytest tests --path <file path to the executable file>
+          > (env) pytest tests --path <file path to the executable file>
 
       Providing the name of a directory to pytest will make it look
       automatically for test scripts.
@@ -140,11 +140,11 @@ build the application for the ARM platform.
   "project_requirements.txt" for packages for the documentation and
   tests or just "docs/docs_requirements.txt" for the documentation only:
 
-    > python3 -m venv env
-    > source env/bin/activate
-    > (env) python3 -m pip install -r project_requirements.txt
-    > (env) cd docs
-    > (env) docs make html
+      > python3 -m venv env
+      > source env/bin/activate
+      > (env) python3 -m pip install -r project_requirements.txt
+      > (env) cd docs
+      > (env) docs make html
 
   Documentation will be created in "docs/build/html". Open "index.html"
   to read the documentation.
