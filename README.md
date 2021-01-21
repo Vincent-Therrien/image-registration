@@ -9,7 +9,9 @@ repository is organized in the following subdirectories:
   Sphinx and a build of the documentation. To read the documentation, open
   the file "docs/build/index.html".
 - **image-registration** contains the C++ source files for the application.
-- **tests** contains the Python test suite.
+- **tests** contains the Python test suite. Tests are performed to check
+  command line arguments and how similar the results are to expected outputs.
+  The documentation contains more information on tests.
 
 The procedure to build, use, and test the application is described in the
 [user guide](#user-guide) below. Possible [improvements](#improvements) are
