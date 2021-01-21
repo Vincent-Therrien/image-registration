@@ -28,10 +28,10 @@ in the "image-registration" directory, can be compiled on any platform with a
 valid C++ compiler and the OpenCV library. The procedure below shows how to
 build the application for the ARM platform.
 
-1. **Installation of a cross compiler and OpenCV**: This step can be skipped
-  if a cross compiler for the ARM platform as well as the OpenCV library are
+1. **Installation of a cross-compiler and OpenCV**: This step can be skipped
+  if a cross-compiler for the ARM platform as well as the OpenCV library are
   installed on the system. Commands are given for an Ubuntu environment and
-  were tested on WSL. First, obtain the cross compiler:
+  were tested on WSL. First, obtain the cross-compiler:
 
   ```console
     > sudo apt-get install arm-linux-gnueabi-gcc
@@ -47,7 +47,7 @@ build the application for the ARM platform.
     > mkdir -p build && cd build
   ```
 
-  To enable cross compilation for the ARM platform, open file
+  To enable cross-compilation for the ARM platform, open file
   "opencv-4.5.1/platforms/linux/arm-gnueabi.toolchain.cmake" and add the
   following lines::
 
@@ -118,17 +118,18 @@ build the application for the ARM platform.
   The section entitle [interface](#interface) explains how to launch the
   program.
 
-4. **Test on ARM**. Tests were performed on a QEMU virtual machine or on
+4. **Test**. Tests can be performed on a QEMU virtual machine or on
   the host system as long as Python can be executed.
 
-   * Transfer the test suite on QEMU from the host system:
+   * To test for ARM, transfer the test suite on QEMU from the host
+     system:
 
       ```console
         > scp -P 2222 -r tests root@localhost:~
       ```
-  
+
    * Create a Python virtual environment with the required packages.
-      Python 3.5 or more recent needs to be installed on the system:
+     Python 3.5 or more recent needs to be installed on the system:
 
       ```console
         > sudo apt-get install python3
@@ -165,23 +166,29 @@ build the application for the ARM platform.
         > (env) pytest tests --path <file path to the executable file>
       ```
 
-      Python will execute the tests.
+      For example,
+      ```console
+        > (env) pytest tests --path image-registration/image-registration
+      ```
+
+      This command must be used at the root of the project, not inside
+      the /tests directory.
 
 ---
 **NOTE**
 
-Cross compilation failed on my system because the gcc linker could not find
+Cross-compilation failed on my system because the gcc linker could not find
 references (it might be an installation error or because I used WSL instead
 of an actual Linux OS). Thus, the application was only tested on the host
 system.
 
-However, cross compilation works when it is not dependent on the OpenCV
+However, cross-compilation works when it is not dependent on the OpenCV
 library. A small program was compiled from the file
 "image-registration/cc_test/cross_compile_test.cpp" and can be executed on the
 ARM QEMU emulator.
 
-To test cross compilation, compile and transfer the file from the host system
-to QEMU:
+To test cross-compilation, compile and transfer the file from the host system
+to QEMU (a compiled file is already there, so compilation can be skipped):
 ```console
 cd image-registration/cc_test/
 arm-linux-gnueabi-g++ cross_compile_test.cpp -o cross_compile_test
@@ -198,7 +205,11 @@ This should print a message, indicating that arm-linux-gnueabi-g++ worked well.
 
 ---
 
-5. **Build the documentation** (optionnal): Documentation can be built by
+5. **Docker**: I did not create a Docker image because cross-compilation
+  failed. I did install and consulted the documentation for the software,
+  though. 
+
+6. **Build the documentation** (optionnal): Documentation can be built by
   creating a Python virtual environment with the right packages. Use
   "project_requirements.txt" for packages for the documentation and
   tests or just "docs/docs_requirements.txt" for the documentation only:
@@ -208,7 +219,7 @@ This should print a message, indicating that arm-linux-gnueabi-g++ worked well.
     > source env/bin/activate
     > (env) python3 -m pip install -r project_requirements.txt
     > (env) cd docs
-    > (env) docs make html
+    > (env) make html
   ```
 
   Documentation will be created in "docs/build/html". Open "index.html"
