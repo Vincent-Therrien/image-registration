@@ -368,17 +368,31 @@ make it possible to set parameters on each use.</p>
 </li>
 <li><p><strong>Less Repetitions</strong>: Some parts of the code are repeated because
 it results in more readability. For example, in the file
-“image-registration.cpp” on lines 236 and 237, vectors an declared for each
-image with an explicit name instead of being grouped in a single structure.</p>
-<p>This practice would however not work for a program that uses more than
+“image-registration.cpp” on lines 236 and 237, vectors are declared for each
+image with an explicit name instead of being grouped in a single structure.
+This practice would however not work for a program that uses more than
 two images at once because individual variables would have to be declared
 for each picture. Repetitions would make the code harder to maintain and
-understand. Therefore, these repetitions should be avoided.</p>
-</li>
+understand. Therefore, these repetitions should be avoided.</p></li>
 <li><p><strong>Performance-conscious Tests</strong>: Current tests only check if the application
 meets minimum requirements, but the test framework should also evaluate
 performances (memory use and rapidity, among others) to ease comparison with
 similar programs.</p></li>
+<li><p><strong>GUI Tests</strong>: The graphical interface is not tested by the Python scripts,
+but it could be automated in the suite along with the other test for cropping
+images.</p></li>
+<li><p><strong>Stricter Programming Practices</strong>: C++ programming conventions are not
+rigorously followed:</p>
+<ul class="simple">
+<li><p>“.h” and “.cpp” should be placed in “include” and “source” directories,
+respectively.</p></li>
+<li><p>There should be a clear separation between argument parsing functions
+and image registration functions. Distinct files could be used.</p></li>
+<li><p>All functions could be placed within a namespace to avoid name conflicts.</p></li>
+<li><p>The argument parsing function takes a lot of input/output arguments.
+A class could replace it for more abstraction.</p></li>
+</ul>
+</li>
 </ol>
 </div>
 </div>

@@ -10,17 +10,22 @@ Command Line Interface Tests
 ----------------------------
 
 These tests check if the program reacts appropriately to command line
-arguments. It checks version display, help message display, and if invalid
-inputs make the program fail as expected.
+arguments. It checks:
+
+- version display
+- help message display
+- if invalid inputs make the program fail as expected.
 
 Image Registration Tests
 ------------------------
 
-The package "imagehash", available through pip, is used to compare how similar
-aligned images are to expected results. Two tests are performed:
+The Python package "imagehash", available through pip, is used to compare how
+similar aligned images are to expected results. Two tests are performed:
 
-First, an image rotated by 45 degrees counter clock wise is aligned. It is
-expected to yield a non-rotated image.
+First, an image rotated by 45 degrees counter clock wise
+(data/test_image_gray_rotated.png) is aligned with the
+original image (data/test_image_rgb.png). It is expected to yield a full
+gray scale non-rotated image.
 
 Second, the rotated image is cropped so that only its left half is aligned.
 Since it is rotated, this area corresponds to the top left half of the original

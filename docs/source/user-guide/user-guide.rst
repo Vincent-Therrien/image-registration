@@ -184,38 +184,40 @@ Improvements
 The application can be improved in the following ways:
 
 #. **More Parameterization**: Currently, options such as:
-  * local detection algorithm selection (ORB),
-  * number of features to detect, and
-  * minimum distance between features
 
-  are pre-determined in the .h file and thus impossible for the user to
-  change. Although it makes the application simpler, an actual program should
-  make it possible to set parameters on each use.
+   * local detection algorithm selection (ORB),
+   * number of features to detect, and
+   * minimum distance between features
+
+   are pre-determined in the .h file and thus impossible for the user to
+   change. Although it makes the application simpler, an actual program should
+   make it possible to set parameters on each use.
 
 #. **Less Repetitions**: Some parts of the code are repeated because
-  it results in more readability. For example, in the file
-  "image-registration.cpp" on lines 236 and 237, vectors are declared for each
-  image with an explicit name instead of being grouped in a single structure.
-  This practice would however not work for a program that uses more than
-  two images at once because individual variables would have to be declared
-  for each picture. Repetitions would make the code harder to maintain and
-  understand. Therefore, these repetitions should be avoided.
+   it results in more readability. For example, in the file
+   "image-registration.cpp" on lines 236 and 237, vectors are declared for each
+   image with an explicit name instead of being grouped in a single structure.
+   This practice would however not work for a program that uses more than
+   two images at once because individual variables would have to be declared
+   for each picture. Repetitions would make the code harder to maintain and
+   understand. Therefore, these repetitions should be avoided.
 
 #. **Performance-conscious Tests**: Current tests only check if the application
-  meets minimum requirements, but the test framework should also evaluate
-  performances (memory use and rapidity, among others) to ease comparison with
-  similar programs.
+   meets minimum requirements, but the test framework should also evaluate
+   performances (memory use and rapidity, among others) to ease comparison with
+   similar programs.
 
 #. **GUI Tests**: The graphical interface is not tested by the Python scripts,
-  but it could be automated in the suite along with the other test for cropping
-  images.
+   but it could be automated in the suite along with the other test for cropping
+   images.
 
 #. **Stricter Programming Practices**: C++ programming conventions are not
-  rigorously followed:
-  * ".h" and ".cpp" should be placed in "include" and "source" directories,
-    respectively.
-  * There should be a clear separation between argument parsing functions
-    and image registration functions. Distinct files could be used.
-  * All functions could be placed within a namespace to avoid name conflicts.
-  * The argument parsing function takes a lot of input/output arguments.
-    A class could replace it for more abstraction.
+   rigorously followed:
+
+   * ".h" and ".cpp" should be placed in "include" and "source" directories,
+     respectively.
+   * There should be a clear separation between argument parsing functions
+     and image registration functions. Distinct files could be used.
+   * All functions could be placed within a namespace to avoid name conflicts.
+   * The argument parsing function takes a lot of input/output arguments.
+     A class could replace it for more abstraction.
