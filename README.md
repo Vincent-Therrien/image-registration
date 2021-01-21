@@ -33,20 +33,25 @@ build the application for the ARM platform.
   installed on the system. Commands are given for an Ubuntu environment and
   were tested on WSL. First, obtain the cross compiler:
 
-    > sudo apt-get install arm-linux-gnueabi-gcc
-    > sudo apt-get install arm-linux-gnueabi-g++
+```console
+> sudo apt-get install arm-linux-gnueabi-gcc
+> sudo apt-get install arm-linux-gnueabi-g++
+```
    
   Then, download latest stable version of OpenCV::
 
+  ```console
     > sudo apt update && sudo apt install -y cmake g++ wget unzip
     > wget -O opencv.zip https://github.com/opencv/opencv/archive/4.5.1.zip
     > unzip opencv.zip
     > mkdir -p build && cd build
+  ```
 
   To enable cross compilation for the ARM platform, open file
   "opencv-4.5.1/platforms/linux/arm-gnueabi.toolchain.cmake" and add the
   following lines::
 
+  ```console
     > set(CMAKE_SYSTEM_NAME Linux)
     > set(CMAKE_SYSTEM_PROCESSOR arm)
     > set(CMAKE_C_COMPILER /usr/bin/arm-linux-gnueabi-gcc)
@@ -56,23 +61,28 @@ build the application for the ARM platform.
     > set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
     > set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
     > set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
-   
+  ```
+
   Run:
 
+  ```console
     > sudo cmake  ../opencv-4.5.1 \
     >   -D CMAKE_TOOLCHAIN_FILE=platforms/linux/arm-gnueabi.toolchain.cmake
     > sudo make
     > sudo make install
+  ```
 
 2. **Compilation**: Compile the application with the following command::
 
-    > arm-linux-gnueabi-gcc \
-    >   -I/usr/local/include/opencv4 \
-    >   -L/usr/local/ \
-    >   -g -o image-registration  image-registration.cpp \
-    >   -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml \
-    >   -lopencv_video -lopencv_features2d -lopencv_calib3d \
-    >   -lopencv_objdetect -lopencv_stitching -lm -lstdc++
+  ```console
+    > arm-linux-gnueabi-gcc \\
+    >  -I/usr/local/include/opencv4 \\
+    >  -L/usr/local/ \\
+    >  -g -o image-registration  image-registration.cpp \\
+    >  -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml \\
+    >  -lopencv_video -lopencv_features2d -lopencv_calib3d \\
+    >  -lopencv_objdetect -lopencv_stitching -lm -lstdc++
+  ```
 
 3. **Transfer on ARM**: I used a QEMU emulator to test how the application
   works in an ARM environment.
@@ -89,48 +99,66 @@ build the application for the ARM platform.
   * Load the QEMU virtual machine and ensure that ports will enable file
     transfer from the host system (ports 2222 and 22 are used):
 
-      > qemu-system-arm.exe -M versatilepb \
-      >   -kernel vmlinuz-2.6.32-5-versatile \
-      >   -initrd initrd.img-2.6.32-5-versatile \
-      >   -hda debian_squeeze_armel_standard.qcow2 \
-      >   -append "root=/dev/sda1" \
+    ```console
+      > qemu-system-arm.exe -M versatilepb \\
+      >   -kernel vmlinuz-2.6.32-5-versatile \\
+      >   -initrd initrd.img-2.6.32-5-versatile \\
+      >   -hda debian_squeeze_armel_standard.qcow2 \\
+      >   -append "root=/dev/sda1" \\
       >   -net user,id=net0,hostfwd=tcp::2222-:22 -net nic
+    ```
 
   * Transfer the executable file on QEMU from the host system:
 
+    ```console
       > scp -P 2222 image-registration root@localhost:~
+    ```
 
 4. **Test on ARM**. Tests were performed on a QEMU virtual machine.
 
    * Transfer the test suite on QEMU from the host system:
 
+      ```console
         > scp -P 2222 -r tests root@localhost:~
+      ```
   
    * Create a Python virtual environment with the required packages.
       Python 3.5 or more recent needs to be installed on the system:
 
-          > sudo apt-get install python3
+      ```console
+        > sudo apt-get install python3
+      ```
 
       Install venv to create virtual environments:
 
-          > python3 -m pip install virtualenv
+      ```console
+        > python3 -m pip install virtualenv
+      ```
 
       Create the environment:
 
-          > python3 -m venv env
+      ```console
+        > python3 -m venv env
+      ```
 
       Activate the environment:
 
-          > source env/bin/activate
+      ```console
+        > source env/bin/activate
+      ```
 
       This will ensure that Python commands will be executed with the
       interpreter version in the environment. Install required packages:
 
-          > (env) python3 -m pip install -r tests/requirements.txt
+      ```console
+        > (env) python3 -m pip install -r tests/requirements.txt
+      ```
       
    3. Run tests:
 
-          > (env) pytest tests --path <file path to the executable file>
+      ```console
+        > (env) pytest tests --path <file path to the executable file>
+      ```
 
       Providing the name of a directory to pytest will make it look
       automatically for test scripts.
@@ -140,11 +168,13 @@ build the application for the ARM platform.
   "project_requirements.txt" for packages for the documentation and
   tests or just "docs/docs_requirements.txt" for the documentation only:
 
-      > python3 -m venv env
-      > source env/bin/activate
-      > (env) python3 -m pip install -r project_requirements.txt
-      > (env) cd docs
-      > (env) docs make html
+  ```console
+    > python3 -m venv env
+    > source env/bin/activate
+    > (env) python3 -m pip install -r project_requirements.txt
+    > (env) cd docs
+    > (env) docs make html
+  ```
 
   Documentation will be created in "docs/build/html". Open "index.html"
   to read the documentation.
@@ -153,7 +183,9 @@ build the application for the ARM platform.
 
 The program can be launched with a terminal using the following command:
 
+  ```console
     > image-registration \<image to register> \<image options> \<reference image> \<image options> \<general options>
+  ```
 
 Image options determine how the loaded images must be
 cropped. They are:
@@ -177,14 +209,18 @@ The registered image will be saved with the name of the reference image with an
 
 For example, the command:
 
+  ```console
     > image-registration a.png -c 0 0 100 200 b.png -g
+  ```
 
 will crop a 100 (width) by 200 (height) pixel rectangle in the top left corner
 of image "a.png" and use it as the image to register. A graphical interface
 will open and let the user manually select the region of interest for "b.png".
 Meanwhile, the command:
 
+  ```console
     > image-registration a.png b.png
+  ```
 
 will use "a.png" as a whole for the image to register and "b.png" for the
 reference.
