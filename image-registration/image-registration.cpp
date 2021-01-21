@@ -355,7 +355,8 @@ int main(int argc, char** argv)
     if (registerImage(imageToRegister, referenceImage, registeredImage)) {
         return -1;
     }
-    printVerbose(isVerbose, "Saved maching keypoints in 'matching-keypoints.jpg'.");
+    std::cout << "Saved maching keypoints in 'matching-keypoints.jpg'."
+        << std::endl;
     // Save the registered image with the appropriate suffix.
     std::string registeredName;
     size_t dotIndex = imageToRegisterPath.find_last_of(".");
@@ -367,7 +368,8 @@ int main(int argc, char** argv)
             + "-aligned.png";
     }
     cv::imwrite(registeredName, registeredImage);
-    printVerbose(isVerbose, "Saved registed image in '" + registeredName + "'.");
+    std::cout << "The registered image was saved at: '" << registeredName
+        << "'." << std::endl;
 
     return 0;
 }

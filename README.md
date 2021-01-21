@@ -1,8 +1,8 @@
 # Challenge 2: Image Registration
 
 This project has been created as part of an internship application process at
-GHGSat. It comprises an image registration program, a test suite, a build
-compiled for the ARM platform, and a Docker container. More precisely, the
+GHGSat. It comprises an image registration program, a test suite, and information
+on how to use them an the ARM platform More precisely, the
 repository is organized in the following subdirectories:
 - **data** contains images to demonstrate and test the application.
 - **docs** contains the source files for building the documentation using
@@ -18,12 +18,12 @@ listed at the end of the file.
 ## User Guide
 
 The application performs image registration on specified images.
-The [installation](#installation) explains how to build the project.
-Section [interface](#interface) shows how to use it.
+The [installation](#installation) explains how to build the project while
+the [interface](#interface) shows how to use it with the command line.
 
 ### Installation
 
-The source files "image-registration.cpp" and "image-registration.hpp", located
+The source files "image-registration.cpp" and "image-registration.h", located
 in the "image-registration" directory, can be compiled on any platform with a
 valid C++ compiler and the OpenCV library. The procedure below shows how to
 build the application for the ARM platform.
@@ -33,10 +33,10 @@ build the application for the ARM platform.
   installed on the system. Commands are given for an Ubuntu environment and
   were tested on WSL. First, obtain the cross compiler:
 
-```console
-> sudo apt-get install arm-linux-gnueabi-gcc
-> sudo apt-get install arm-linux-gnueabi-g++
-```
+  ```console
+    > sudo apt-get install arm-linux-gnueabi-gcc
+    > sudo apt-get install arm-linux-gnueabi-g++
+  ```
    
   Then, download latest stable version of OpenCV::
 
@@ -75,20 +75,21 @@ build the application for the ARM platform.
 2. **Compilation**: Compile the application with the following command::
 
   ```console
-    > arm-linux-gnueabi-gcc \\
-    >  -I/usr/local/include/opencv4 \\
-    >  -L/usr/local/ \\
-    >  -g -o image-registration  image-registration.cpp \\
-    >  -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml \\
-    >  -lopencv_video -lopencv_features2d -lopencv_calib3d \\
+    > arm-linux-gnueabi-g++ \
+    >  -I/usr/local/include/opencv4 \
+    >  -L/usr/local/ \
+    >  -g -o image-registration  image-registration.cpp \
+    >  -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml \
+    >  -lopencv_video -lopencv_features2d -lopencv_calib3d \
     >  -lopencv_objdetect -lopencv_stitching -lm -lstdc++
   ```
 
 3. **Transfer on ARM**: I used a QEMU emulator to test how the application
   works in an ARM environment.
 
-  * Download QEMU (for Windows) from https://qemu.weilnetz.de/w64/2020/.
-    Distributions on other platforms are supposed to work.
+  * I downloaded QEMU for Windows from https://qemu.weilnetz.de/w64/2020/,
+    but distributions on other platforms are supposed to work with the
+    application.
   * Download ARM images from https://people.debian.org/~aurel32/qemu/armel/.
     The following files are required:
 
@@ -100,11 +101,11 @@ build the application for the ARM platform.
     transfer from the host system (ports 2222 and 22 are used):
 
     ```console
-      > qemu-system-arm.exe -M versatilepb \\
-      >   -kernel vmlinuz-2.6.32-5-versatile \\
-      >   -initrd initrd.img-2.6.32-5-versatile \\
-      >   -hda debian_squeeze_armel_standard.qcow2 \\
-      >   -append "root=/dev/sda1" \\
+      > qemu-system-arm.exe -M versatilepb \
+      >   -kernel vmlinuz-2.6.32-5-versatile \
+      >   -initrd initrd.img-2.6.32-5-versatile \
+      >   -hda debian_squeeze_armel_standard.qcow2 \
+      >   -append "root=/dev/sda1" \
       >   -net user,id=net0,hostfwd=tcp::2222-:22 -net nic
     ```
 
@@ -114,7 +115,8 @@ build the application for the ARM platform.
       > scp -P 2222 image-registration root@localhost:~
     ```
 
-4. **Test on ARM**. Tests were performed on a QEMU virtual machine.
+4. **Test on ARM**. Tests were performed on a QEMU virtual machine or on
+  the host system as long as Python can be executed.
 
    * Transfer the test suite on QEMU from the host system:
 
@@ -160,11 +162,38 @@ build the application for the ARM platform.
         > (env) pytest tests --path <file path to the executable file>
       ```
 
-      Providing the name of a directory to pytest will make it look
-      automatically for test scripts.
+      Python will execute the tests.
 
-5. **Build the documentation**: Documentation can be built by creating
-  a Python virtual environment with the right packages. Use
+---
+**NOTE**
+
+Cross compilation failed on my system because the gcc linker could not find
+references (it might be an installation error or because I used WSL instead
+of an actual Linux OS). Thus, the application was only tested on the host
+system.
+
+However, cross compilation works when it is not dependent on the OpenCV
+library. A small program was compiled from the file
+"image-registration/cc_test/cross_compile_test.cpp" and can be executed on the
+ARM QEMU emulator.
+
+To test cross compilation, transfer the file from the host system to QEMU:
+```console
+scp -P 2222 image-registration/image-registration/cc_test/cross_compile_test root@localhost:~
+```
+
+On QEMU, run:
+```console
+chmod a+x cross_compile_test
+cross_compile_test
+```
+
+This should print a message, indicating that arm-linux-gnueabi-g++ worked well.
+
+---
+
+5. **Build the documentation** (optionnal): Documentation can be built by
+  creating a Python virtual environment with the right packages. Use
   "project_requirements.txt" for packages for the documentation and
   tests or just "docs/docs_requirements.txt" for the documentation only:
 
@@ -184,7 +213,7 @@ build the application for the ARM platform.
 The program can be launched with a terminal using the following command:
 
   ```console
-    > image-registration \<image to register> \<image options> \<reference image> \<image options> \<general options>
+    > image-registration <image to register> <image options> <reference image> <image options> <general options>
   ```
 
 Image options determine how the loaded images must be
@@ -252,12 +281,16 @@ The application can be improved in the following ways:
   performances (memory use and rapidity, among others) to ease comparison with
   similar programs.
 
-4. **GUI Tests**: The graphical interface is not tested, but it could be
-  automated in the suite along with the other test for cropping images.
+4. **GUI Tests**: The graphical interface is not tested by the Python scripts,
+  but it could be automated in the suite along with the other test for cropping
+  images.
 
 5. **Stricter Programming Practices**: C++ programming conventions are not
   rigorously followed:
   * ".h" and ".cpp" should be placed in "include" and "source" directories,
     respectively.
-  * The argument parsing function takes a lot of input/output arguments,
-    a class could replace it for more abstraction.
+  * There should be a clear separation between argument parsing functions
+    and image registration functions. Distinct files could be used.
+  * All functions could be placed within a namespace to avoid name conflicts.
+  * The argument parsing function takes a lot of input/output arguments.
+    A class could replace it for more abstraction.

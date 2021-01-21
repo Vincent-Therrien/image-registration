@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>User Guide &mdash; image-registration 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Developer Guide" href="../developer-guide/developer-guide.html" />
+    <link rel="prev" title="image-registration" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> image-registration
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interface">Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improvements">Improvements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer-guide/developer-guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests/tests.html">Test Suite</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">image-registration</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>User Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/user-guide/user-guide.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="user-guide">
+<h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
+<p>The application performs image registration on specified images.
+The following page describes how to install and use the program (the same
+content can be found in the README.md file at the root of the project).</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The source files “image-registration.cpp” and “image-registration.hpp”, located
+in the “image-registration” directory, can be compiled on any platform with a
+valid C++ compiler and the OpenCV library. The procedure below shows how to
+build the application for the ARM platform.</p>
+<ol class="arabic">
+<li><p><strong>Installation of a cross compiler and OpenCV</strong>: This step can be skipped
+if a cross compiler for the ARM platform as well as the OpenCV library are
+installed on the system. Commands are given for an Ubuntu environment and
+were tested on WSL. First, obtain the cross compiler:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabi</span><span class="o">-</span><span class="n">gcc</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabi</span><span class="o">-</span><span class="n">g</span><span class="o">++</span>
+</pre></div>
+</div>
+<p>Then, download latest stable version of OpenCV:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">cmake</span> <span class="n">g</span><span class="o">++</span> <span class="n">wget</span> <span class="n">unzip</span>
+<span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="n">opencv</span><span class="o">.</span><span class="n">zip</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">opencv</span><span class="o">/</span><span class="n">opencv</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="mf">4.5</span><span class="o">.</span><span class="mf">1.</span><span class="n">zip</span>
+<span class="n">unzip</span> <span class="n">opencv</span><span class="o">.</span><span class="n">zip</span>
+<span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+<p>To enable cross compilation for the ARM platform, open file
+“opencv-4.5.1/platforms/linux/arm-gnueabi.toolchain.cmake” and add the
+following lines:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">CMAKE_SYSTEM_NAME</span> <span class="n">Linux</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">CMAKE_SYSTEM_PROCESSOR</span> <span class="n">arm</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">CMAKE_C_COMPILER</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabi</span><span class="o">-</span><span class="n">gcc</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">CMAKE_CXX_COMPILER</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabi</span><span class="o">-</span><span class="n">g</span><span class="o">++</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="n">CMAKE_FIND_ROOT_PATH_MODE_PROGRAM</span> <span class="n">NEVER</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">CMAKE_FIND_ROOT_PATH_MODE_LIBRARY</span> <span class="n">ONLY</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">CMAKE_FIND_ROOT_PATH_MODE_INCLUDE</span> <span class="n">ONLY</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="n">CMAKE_FIND_ROOT_PATH_MODE_PACKAGE</span> <span class="n">ONLY</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">cmake</span>  <span class="o">../</span><span class="n">opencv</span><span class="o">-</span><span class="mf">4.5</span><span class="o">.</span><span class="mi">1</span> \
+    <span class="o">-</span><span class="n">D</span> <span class="n">CMAKE_TOOLCHAIN_FILE</span><span class="o">=</span><span class="n">platforms</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">gnueabi</span><span class="o">.</span><span class="n">toolchain</span><span class="o">.</span><span class="n">cmake</span>
+<span class="n">sudo</span> <span class="n">make</span>
+<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Compilation</strong>: Compile the application with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabi</span><span class="o">-</span><span class="n">gcc</span> \
+    <span class="o">-</span><span class="n">I</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">opencv4</span> \
+    <span class="o">-</span><span class="n">L</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span> \
+    <span class="o">-</span><span class="n">g</span> <span class="o">-</span><span class="n">o</span> <span class="n">image</span><span class="o">-</span><span class="n">registration</span>  <span class="n">image</span><span class="o">-</span><span class="n">registration</span><span class="o">.</span><span class="n">cpp</span> \
+    <span class="o">-</span><span class="n">lopencv_core</span> <span class="o">-</span><span class="n">lopencv_imgproc</span> <span class="o">-</span><span class="n">lopencv_highgui</span> <span class="o">-</span><span class="n">lopencv_ml</span> \
+    <span class="o">-</span><span class="n">lopencv_video</span> <span class="o">-</span><span class="n">lopencv_features2d</span> <span class="o">-</span><span class="n">lopencv_calib3d</span> \
+    <span class="o">-</span><span class="n">lopencv_objdetect</span> <span class="o">-</span><span class="n">lopencv_stitching</span> <span class="o">-</span><span class="n">lm</span> <span class="o">-</span><span class="n">lstdc</span><span class="o">++</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Transfer on ARM</strong>: I used a QEMU emulator to test how the application
+works in an ARM environment.</p>
+<ol class="arabic">
+<li><dl class="simple">
+<dt>Download QEMU (for Windows) from <a class="reference external" href="https://qemu.weilnetz.de/w64/2020/">https://qemu.weilnetz.de/w64/2020/</a>.</dt><dd><p>Distributions on other platforms are supposed to work.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Download ARM images from <a class="reference external" href="https://people.debian.org/~aurel32/qemu/armel/">https://people.debian.org/~aurel32/qemu/armel/</a>.</dt><dd><p>The following files are required:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>debian_squeeze_armel_standard.qcow2</p></li>
+<li><p>initrd.img-2.6.32-5-versatile</p></li>
+<li><p>vmlinuz-2.6.32-5-versatile</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</li>
+<li><p>Load the QEMU virtual machine and ensure that ports will enable file
+transfer from the host system (ports 2222 and 22 are used):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qemu</span><span class="o">-</span><span class="n">system</span><span class="o">-</span><span class="n">arm</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">M</span> <span class="n">versatilepb</span> \
+   <span class="o">-</span><span class="n">kernel</span> <span class="n">vmlinuz</span><span class="o">-</span><span class="mf">2.6</span><span class="o">.</span><span class="mi">32</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">versatile</span> \
+   <span class="o">-</span><span class="n">initrd</span> <span class="n">initrd</span><span class="o">.</span><span class="n">img</span><span class="o">-</span><span class="mf">2.6</span><span class="o">.</span><span class="mi">32</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="n">versatile</span> \
+   <span class="o">-</span><span class="n">hda</span> <span class="n">debian_squeeze_armel_standard</span><span class="o">.</span><span class="n">qcow2</span> \
+   <span class="o">-</span><span class="n">append</span> <span class="s2">&quot;root=/dev/sda1&quot;</span> \
+   <span class="o">-</span><span class="n">net</span> <span class="n">user</span><span class="p">,</span><span class="nb">id</span><span class="o">=</span><span class="n">net0</span><span class="p">,</span><span class="n">hostfwd</span><span class="o">=</span><span class="n">tcp</span><span class="p">::</span><span class="mi">2222</span><span class="o">-</span><span class="p">:</span><span class="mi">22</span> <span class="o">-</span><span class="n">net</span> <span class="n">nic</span>
+</pre></div>
+</div>
+</li>
+<li><p>Transfer the executable file on QEMU from the host system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scp</span> <span class="o">-</span><span class="n">P</span> <span class="mi">2222</span> <span class="n">image</span><span class="o">-</span><span class="n">registration</span> <span class="n">root</span><span class="nd">@localhost</span><span class="p">:</span><span class="o">~</span>
+</pre></div>
+</div>
+<p>The application can be used on QEMU.</p>
+</li>
+</ol>
+</li>
+<li><p><strong>Test on ARM</strong>. Tests were performed on a QEMU virtual machine.</p>
+<ol class="arabic">
+<li><p>Transfer the test suite on QEMU from the host system:</p>
+<p>scp -P 2222 -r tests <a class="reference external" href="mailto:root&#37;&#52;&#48;localhost">root<span>&#64;</span>localhost</a>:~</p>
+</li>
+<li><p>Create a Python virtual environment with the required packages.
+Python 3.5 or more recent needs to be installed on the system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python3</span>
+</pre></div>
+</div>
+<p>Install venv to create virtual environments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenv</span>
+</pre></div>
+</div>
+<p>Create the environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">env</span>
+</pre></div>
+</div>
+<p>Activate the environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>This will ensure that Python commands will be executed with the
+interpreter version in the environment. Install required packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">env</span><span class="p">)</span> <span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">tests</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run tests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">env</span><span class="p">)</span> <span class="n">pytest</span> <span class="n">tests</span> <span class="o">--</span><span class="n">path</span> <span class="o">&lt;</span><span class="n">file</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">executable</span> <span class="n">file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Providing the name of a directory to pytest will make it look
+automatically for test scripts.</p>
+</li>
+</ol>
+</li>
+<li><p><strong>Build the documentation</strong>: Documentation can be built by creating
+a Python virtual environment with the right packages. Use
+“project_requirements.txt” for packages for the documentation and
+tests or just “docs/docs_requirements.txt” for the documentation only:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">env</span>
+<span class="n">source</span> <span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="p">(</span><span class="n">env</span><span class="p">)</span> <span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">project_requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">(</span><span class="n">env</span><span class="p">)</span> <span class="n">cd</span> <span class="n">docs</span>
+<span class="p">(</span><span class="n">env</span><span class="p">)</span> <span class="n">docs</span> <span class="n">make</span> <span class="n">html</span>
+</pre></div>
+</div>
+<p>Documentation will be created in “docs/build/html”. Open “index.html”
+to read the documentation.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="interface">
+<h2>Interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<p>The program can be launched with a terminal using the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image</span><span class="o">-</span><span class="n">registration</span> <span class="o">&lt;</span><span class="n">image</span> <span class="n">to</span> <span class="n">register</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">image</span> <span class="n">options</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">reference</span> <span class="n">image</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">image</span> <span class="n">options</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">general</span> <span class="n">options</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Image options determine how the loaded images must be
+cropped. They are:</p>
+<ul class="simple">
+<li><p><strong>-c</strong> or <strong>–crop</strong>: crop the image according to a rectangular region
+specified as &lt;top left x coordinate&gt; &lt;top left y coordinate&gt; &lt;width&gt;
+&lt;height&gt;.</p></li>
+<li><p><strong>-g</strong> or <strong>–graphic</strong>: open a graphical interface to crop the image
+manually.</p></li>
+<li><p><strong>No option</strong>: the whole image is used.</p></li>
+</ul>
+<p>General options affect the behavior of the whole application. They are:</p>
+<ul class="simple">
+<li><p><strong>-v</strong> (lower case) or <strong>–verbose</strong>: Make the application describe the
+operations it is performing (useful for debugging).</p></li>
+<li><p><strong>-V</strong> (upper case) or <strong>–version</strong>: display the version of the program.</p></li>
+<li><p><strong>-h</strong> or <strong>–help</strong>: print a help message.</p></li>
+</ul>
+<p>The registered image will be saved with the name of the reference image with an
+“-aligned.png” suffix.</p>
+<p>For example, the command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image</span><span class="o">-</span><span class="n">registration</span> <span class="n">a</span><span class="o">.</span><span class="n">png</span> <span class="o">-</span><span class="n">c</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">100</span> <span class="mi">200</span> <span class="n">b</span><span class="o">.</span><span class="n">png</span> <span class="o">-</span><span class="n">g</span>
+</pre></div>
+</div>
+<p>will crop a 100 (width) by 200 (height) pixel rectangle in the top left corner
+of image “a.png” and use it as the image to register. A graphical interface
+will open and let the user manually select the region of interest for “b.png”.
+Meanwhile, the command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image</span><span class="o">-</span><span class="n">registration</span> <span class="n">a</span><span class="o">.</span><span class="n">png</span> <span class="n">b</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>will use “a.png” as a whole for the image to register and “b.png” for the
+reference.</p>
+</div>
+<div class="section" id="improvements">
+<h2>Improvements<a class="headerlink" href="#improvements" title="Permalink to this headline">¶</a></h2>
+<p>The application can be improved in the following ways:</p>
+<ol class="arabic">
+<li><p><strong>More Parameterization</strong>: Currently, options such as:</p>
+<ul class="simple">
+<li><p>local detection algorithm selection (ORB),</p></li>
+<li><p>number of features to detect, and</p></li>
+<li><p>minimum distance between features</p></li>
+</ul>
+<p>are pre-determined in the .h file and thus impossible for the user to
+change. Although it makes the application simpler, an actual program should
+make it possible to set parameters on each use.</p>
+</li>
+<li><p><strong>Less Repetitions</strong>: Some parts of the code are repeated because
+it results in more readability. For example, in the file
+“image-registration.cpp” on lines 236 and 237, vectors an declared for each
+image with an explicit name instead of being grouped in a single structure.</p>
+<p>This practice would however not work for a program that uses more than
+two images at once because individual variables would have to be declared
+for each picture. Repetitions would make the code harder to maintain and
+understand. Therefore, these repetitions should be avoided.</p>
+</li>
+<li><p><strong>Performance-conscious Tests</strong>: Current tests only check if the application
+meets minimum requirements, but the test framework should also evaluate
+performances (memory use and rapidity, among others) to ease comparison with
+similar programs.</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../developer-guide/developer-guide.html" class="btn btn-neutral float-right" title="Developer Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="image-registration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Vincent Therrien.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

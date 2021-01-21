@@ -1,3 +1,2 @@
-docs/build/*
 *.pyc
 .pytest_cache
